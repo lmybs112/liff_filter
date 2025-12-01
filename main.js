@@ -1,5 +1,5 @@
 import './style.css';
-import '@mediapipe/selfie_segmentation';
+// import '@mediapipe/selfie_segmentation'; // Loaded via CDN in index.html
 const SelfieSegmentation = window.SelfieSegmentation;
 import liff from '@line/liff';
 
