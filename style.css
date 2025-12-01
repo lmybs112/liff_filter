@@ -157,20 +157,63 @@ body {
   cursor: pointer;
 }
 
-/* Filter Classes */
+/* Filter Classes - 專業級濾鏡效果 */
 .filter-none { filter: none; }
-.filter-sepia { filter: sepia(0.8); }
-.filter-grayscale { filter: grayscale(1); }
-.filter-contrast { filter: contrast(1.5); }
-.filter-brightness { filter: brightness(1.2); }
-.filter-vintage { filter: sepia(0.4) contrast(1.2) brightness(0.9); }
-.filter-sakura { filter: hue-rotate(330deg) saturate(1.2) brightness(1.1); }
-.filter-dark { filter: contrast(1.3) brightness(0.7) saturate(0.8); }
-.filter-warm { filter: sepia(0.3) saturate(1.4); }
-.filter-cool { filter: hue-rotate(180deg) sepia(0.2); }
-.filter-fade { filter: opacity(0.8) brightness(1.1); }
-.filter-cyber { filter: hue-rotate(200deg) contrast(1.5) saturate(2); }
-.filter-soft { filter: brightness(1.1) contrast(0.9) saturate(1.2); }
+
+/* 懷舊 - 溫暖的復古色調 */
+.filter-sepia { 
+  filter: sepia(0.6) contrast(1.1) brightness(1.05) saturate(0.9); 
+}
+
+/* 黑白 - 高對比黑白 */
+.filter-grayscale { 
+  filter: grayscale(1) contrast(1.15) brightness(1.05); 
+}
+
+/* 精品 - 高對比度專業感 */
+.filter-punch { 
+  filter: contrast(1.4) saturate(1.2) brightness(0.98); 
+}
+
+/* 復古 - 褪色膠片感 */
+.filter-vintage { 
+  filter: sepia(0.35) contrast(1.15) brightness(1.05) saturate(0.85) hue-rotate(-5deg); 
+}
+
+/* 櫻花粉 - 柔和粉色調 */
+.filter-sakura { 
+  filter: hue-rotate(330deg) saturate(1.3) brightness(1.12) contrast(0.95); 
+}
+
+/* 暗黑風 - 深沉神秘感 */
+.filter-dark { 
+  filter: contrast(1.35) brightness(0.75) saturate(0.7) hue-rotate(5deg); 
+}
+
+/* 暖陽 - 溫暖陽光感 */
+.filter-warm { 
+  filter: sepia(0.25) saturate(1.35) brightness(1.08) contrast(1.05); 
+}
+
+/* 日系 - 清新淡雅 */
+.filter-cool { 
+  filter: hue-rotate(190deg) saturate(0.85) brightness(1.1) contrast(0.95); 
+}
+
+/* 褪色 - 柔和夢幻 */
+.filter-fade { 
+  filter: opacity(0.88) brightness(1.15) contrast(0.9) saturate(0.8); 
+}
+
+/* 賽博 - 未來科技感 */
+.filter-cyber { 
+  filter: hue-rotate(200deg) contrast(1.45) saturate(1.8) brightness(1.05); 
+}
+
+/* 柔焦 - 柔和浪漫 */
+.filter-soft { 
+  filter: brightness(1.12) contrast(0.88) saturate(1.15) blur(0.3px); 
+}
 
 /* Apply filter to canvas wrapper or canvas itself */
 #output-canvas {

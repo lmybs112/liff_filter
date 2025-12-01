@@ -5,9 +5,10 @@ import liff from '@line/liff';
 
 // Configuration
 const CONFIG = {
-  LIFF_ID: '1657626423-odDnbGYx', // Placeholder
-  WIDTH: 1280,
-  HEIGHT: 720,
+  LIFF_ID: '1657626423-odDnbGYx',
+  // 動態調整解析度以符合裝置螢幕
+  WIDTH: Math.min(window.innerWidth * window.devicePixelRatio, 1920),
+  HEIGHT: Math.min(window.innerHeight * window.devicePixelRatio, 1080),
 };
 
 // State
@@ -76,7 +77,7 @@ async function init() {
     });
 
     state.segmentation.setOptions({
-      modelSelection: 0, 
+      modelSelection: 1, // 使用 landscape 模型，品質更好
       selfieMode: false, // We handle mirroring manually via CSS/Canvas
     });
 
@@ -136,13 +137,28 @@ function onResults(results) {
   ctx.fillStyle = bg.color;
   ctx.fillRect(0, 0, width, height);
   
-  // 2. Draw Segmentation Mask
-  ctx.globalCompositeOperation = 'destination-out';
-  ctx.drawImage(results.segmentationMask, 0, 0, width, height);
-
-  // 3. Draw Person (Original Video)
-  ctx.globalCompositeOperation = 'destination-over';
+  // 2. Draw Person First
   ctx.drawImage(results.image, 0, 0, width, height);
+  
+  // 3. Apply Segmentation Mask with Edge Smoothing
+  // 創建臨時 canvas 來處理 mask
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = width;
+  tempCanvas.height = height;
+  const tempCtx = tempCanvas.getContext('2d');
+  
+  // 繪製並模糊 mask 邊緣以減少鋸齒
+  tempCtx.filter = 'blur(2px)';
+  tempCtx.drawImage(results.segmentationMask, 0, 0, width, height);
+  
+  // 使用 mask 來合成背景
+  ctx.globalCompositeOperation = 'destination-in';
+  ctx.drawImage(tempCanvas, 0, 0, width, height);
+  
+  // 繪製背景
+  ctx.globalCompositeOperation = 'destination-over';
+  ctx.fillStyle = bg.color;
+  ctx.fillRect(0, 0, width, height);
 
   ctx.restore();
 }
