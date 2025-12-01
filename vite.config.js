@@ -10,8 +10,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          mediapipe: ['@mediapipe/selfie_segmentation'],
+        manualChunks(id) {
+          if (id.includes('@mediapipe/selfie_segmentation')) {
+            return 'mediapipe';
+          }
         },
       },
     },
