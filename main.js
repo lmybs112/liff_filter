@@ -68,17 +68,6 @@ async function init() {
     canvasElement.height = CONFIG.HEIGHT;
     state.canvasCtx = canvasElement.getContext('2d');
 
-    // 2. Setup Camera
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        width: { ideal: CONFIG.WIDTH },
-        height: { ideal: CONFIG.HEIGHT },
-        facingMode: 'user',
-      },
-    });
-    videoElement.srcObject = stream;
-    await videoElement.play();
-
     // 3. Setup MediaPipe
     state.segmentation = new SelfieSegmentation({
       locateFile: (file) => {
@@ -87,11 +76,6 @@ async function init() {
     });
 
     state.segmentation.setOptions({
-      modelSelection: 1, // 0: General, 1: Landscape (faster?) actually 1 is usually lighter? No, 1 is landscape, 0 is general.
-      // Docs: 0 is general, 1 is landscape. Landscape is often better for full body/webcam.
-      // Let's stick to 1 for now or 0. 1 is usually higher quality but slower?
-      // Actually for mobile, we want speed.
-      // Let's try 0 first if 1 is too slow.
       modelSelection: 0, 
       selfieMode: false, // We handle mirroring manually via CSS/Canvas
     });
@@ -105,12 +89,24 @@ async function init() {
       }
       requestAnimationFrame(sendToMediaPipe);
     }
-    
+
     // Wait for video to be ready
     videoElement.onloadeddata = () => {
+        console.log('Video loaded!');
         loadingElement.style.display = 'none';
         sendToMediaPipe();
     };
+
+    // 2. Setup Camera
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        width: { ideal: CONFIG.WIDTH },
+        height: { ideal: CONFIG.HEIGHT },
+        facingMode: 'user',
+      },
+    });
+    videoElement.srcObject = stream;
+    await videoElement.play();
 
     // 4. Setup UI
     renderUI();

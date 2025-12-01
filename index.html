@@ -11,7 +11,7 @@
     <div id="app">
       <div class="camera-container">
         <!-- Hidden video element for MediaPipe input -->
-        <video id="input-video" playsinline style="display: none;"></video>
+        <video id="input-video" playsinline autoplay muted style="position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px;"></video>
         <!-- Main canvas for rendering -->
         <canvas id="output-canvas"></canvas>
         
