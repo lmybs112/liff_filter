@@ -5,7 +5,7 @@ import liff from '@line/liff';
 
 // Configuration
 const CONFIG = {
-  LIFF_ID: 'YOUR_LIFF_ID_HERE', // Placeholder
+  LIFF_ID: '1657626423-odDnbGYx', // Placeholder
   WIDTH: 1280,
   HEIGHT: 720,
 };
